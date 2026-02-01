@@ -21,7 +21,7 @@ namespace EdgeMonitor
 
         public async Task ConnectAsync(PlcConfig plcConfig)
         {
-            await _protocol.ConnectAsync(_config.IpAddress, _config.Port);
+            await _protocol.ConnectAsync(plcConfig);
             IsConnected = true;
         }
 

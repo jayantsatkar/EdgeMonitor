@@ -14,5 +14,7 @@ namespace EdgeMonitor
         public ProtocolType Protocol { get; set; }
         public string IpAddress { get; set; } = "";
         public int Port { get; set; }
+
+        public byte SlaveId { get; set; } = 1;
     }
 }

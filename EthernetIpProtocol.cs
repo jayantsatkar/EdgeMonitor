@@ -8,9 +8,9 @@ namespace EdgeMonitor
 {
     public class EthernetIpProtocol : IProtocol
     {
-        public Task ConnectAsync(string ip, int port)
+        public Task ConnectAsync(PlcConfig plcConfig)
         {
-            Console.WriteLine($"EtherNet/IP connect to {ip}:{port}");
+            Console.WriteLine($"EtherNet/IP connect to {plcConfig.IpAddress}:{plcConfig.Port}");
             return Task.CompletedTask;
         }
 
@@ -26,6 +26,10 @@ namespace EdgeMonitor
         {
             Console.WriteLine($"EIP WRITE {tagRequest.Address} = {tagRequest.Value}");
             return Task.CompletedTask;
+        }
+        public void Dispose()
+        {
+            DisconnectAsync().Wait();
         }
     }
 

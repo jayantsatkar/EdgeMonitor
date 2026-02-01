@@ -8,9 +8,9 @@ namespace EdgeMonitor
 {
     public class S7Protocol : IProtocol
     {
-        public Task ConnectAsync(string ip, int port)
+        public Task ConnectAsync(PlcConfig plcConfig)
         {
-            Console.WriteLine($"Connecting using S7 protocol to {ip}:{port}");
+            Console.WriteLine($"Connecting using S7 protocol to {plcConfig.IpAddress}:{plcConfig.Port}");
             return Task.CompletedTask;
         }
 
@@ -31,6 +31,10 @@ namespace EdgeMonitor
         {
             Console.WriteLine($"S7 WRITE: {tagRequest.Address} = {tagRequest.Value}");
             return Task.CompletedTask;
+        }
+        public void Dispose()
+        {
+            DisconnectAsync().Wait();
         }
     }
 
