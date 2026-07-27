@@ -9,6 +9,8 @@ namespace EdgeMonitor
 {
     public class PlcConfig
     {
+
+
         public string PlcName { get; set; } = "";
         public PlcMake PlcMake { get; set; }
         public ProtocolType Protocol { get; set; }

@@ -37,8 +37,14 @@ namespace EdgeMonitor
                 PlcMake = PlcMake.Mitsubishi,
                 Protocol = ProtocolType.ModbusTcp,
                 IpAddress = "192.168.0.105",
-                Port = 502
+                Port = 502,
+                PlcName ="ProdA1"
             };
+
+            PlcManager manager = new PlcManager();
+
+            manager.StartPlc(cfg);
+           // manager.StartPlc(plc2Config);
 
             //PlcWorker plcWorker = new PlcWorker(cfg);
             //var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
@@ -46,34 +52,34 @@ namespace EdgeMonitor
             //Task plcTask = Task.Run(() => plcWorker.RunAsync(cts.Token));
 
 
-            var plc = PlcFactory.Create(cfg);
-            await plc.ConnectAsync(cfg);
+            //var plc = PlcFactory.Create(cfg);
+            //await plc.ConnectAsync(cfg);
 
 
-            TagResponse tagResponse = null;
-            TagRequest usn = new TagRequest();
-            usn.Address = "40001";
-            usn.Length = 10;
+            //TagResponse tagResponse = null;
+            //TagRequest usn = new TagRequest();
+            //usn.Address = "40001";
+            //usn.Length = 10;
 
 
-            TagRequest heartbit = new TagRequest();
-            heartbit.Address = "3500";
-            heartbit.Length = 1;
-            heartbit.Value = true;
+            //TagRequest heartbit = new TagRequest();
+            //heartbit.Address = "3500";
+            //heartbit.Length = 1;
+            //heartbit.Value = true;
 
 
-            while (true)
-            {
-                //int value = await plc.ReadAsync<int>("10");
-                heartbit.Value = !(Boolean)heartbit.Value;
+            //while (true)
+            //{
+            //    //int value = await plc.ReadAsync<int>("10");
+            //    heartbit.Value = !(Boolean)heartbit.Value;
 
-                tagResponse = await plc.ReadAsync<TagResponse>(usn);
+            //    tagResponse = await plc.ReadAsync<TagResponse>(usn);
 
-                await plc.WriteAsync<TagResponse>(heartbit);
-                Console.WriteLine("DMC Number::{0}", tagResponse?.Value);
-                Thread.Sleep(4000);
+            //    await plc.WriteAsync<TagResponse>(heartbit);
+            //    Console.WriteLine("DMC Number::{0}", tagResponse?.Value);
+            //    Thread.Sleep(4000);
 
-            }
+            //}
 
             Console.ReadLine();
 

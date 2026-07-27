@@ -51,7 +51,7 @@ namespace EdgeMonitor
             object result = null;
             try
             {
-              
+
                 if (_stream == null)
                     throw new Exception("Modbus not connected.");
 
@@ -65,7 +65,7 @@ namespace EdgeMonitor
                 for (int i = 0; i < registers.Length; i++)
                 { chars[i] = (char)registers[i]; }
                 string DMC = new string(chars);
-               
+
 
                 TagResponse tagResponse = new TagResponse();
                 tagResponse.Address = tagRequest.Address;
@@ -73,10 +73,11 @@ namespace EdgeMonitor
                 tagResponse.Value = DMC;
 
                 result = Convert.ChangeType(tagResponse, typeof(T));
-              
+
             }
 
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.StackTrace);
 
                 Console.WriteLine("Disconnecting PLC");
@@ -101,7 +102,7 @@ namespace EdgeMonitor
                 ushort[] registers = _master.ReadHoldingRegisters(1, Convert.ToUInt16(tagRequest.Address), tagRequest.Length);
             }
 
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.StackTrace);
 
@@ -120,6 +121,10 @@ namespace EdgeMonitor
         {
             DisconnectAsync().Wait();
         }
+
+        // Polling is handled by higher-level components. Removed reference to undefined _config and
+        // related helper methods to keep this protocol implementation focused on read/write/connect.
+
     }
 
 }
